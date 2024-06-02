@@ -78,7 +78,7 @@ const authenticateToken = (req, res, next) => {
     console.log('Token:', req.headers.authorization);
     try{
         jwt.verify(token, SECRET_KEY, (err) => {
-            if (err) return res.sendStatus(403);
+            // if (err) return res.sendStatus(403);
             // req.user = user;
             next();
         });
@@ -394,15 +394,15 @@ app.post('/album', authenticateToken, (req, res) => {
  *         description: Error al crear la canción
  */
 app.post('/cancion', authenticateToken, (req, res) => {
-    const { Titulo, Artista, Albumid } = req.body;
+    const { Titulo, Artista } = req.body;
 
-    const query = 'INSERT INTO cancion (Titulo, Artista, Albumid) VALUES (?, ?, ?)';
+    const query = 'INSERT INTO cancion (Titulo, Artista) VALUES (?, ?)';
     connection.query(query, [Titulo, Artista, Albumid], (err, results) => {
         if (err) {
             console.error('Error al crear la canción:', err);
             return res.status(500).json({ error: 'Error al crear la canción' });
         }
-        res.json({ id: results.insertId, Titulo, Artista, Albumid });
+        res.json({ id: results.insertId, Titulo, Artista });
     });
 });
 
@@ -497,10 +497,10 @@ app.get('/canciones', authenticateToken, (req, res) => {
  */
 app.put('/cancion/:id', authenticateToken, (req, res) => {
     const { id } = req.params;
-    const { Titulo, Artista, Albumid } = req.body;
+    const { Titulo, Artista } = req.body;
 
-    const query = 'UPDATE cancion SET Titulo = ?, Artista = ?, Albumid = ? WHERE idCancion = ?';
-    connection.query(query, [Titulo, Artista, Albumid, id], (err, results) => {
+    const query = 'UPDATE cancion SET Titulo = ?, Artista = ? WHERE idCancion = ?';
+    connection.query(query, [Titulo, Artista, id], (err, results) => {
         if (err) {
             console.error('Error al modificar la canción:', err);
             return res.status(500).json({ error: 'Error al modificar la canción' });
