@@ -21,8 +21,8 @@ const host = process.env.host || 'localhost'
 const user = process.env.user || 'root'
 const password = process.env.password || 'Dima.zdla1'
 const database = process.env.database || 'sputyfy'
-const dbport = process.env.dbport || 3306
-
+// const dbport = process.env.dbport || 3306
+const dbport = PORT
 // Configuración de la base de datos
 /*
 const connection = mysql.createConnection({
