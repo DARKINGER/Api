@@ -397,7 +397,7 @@ app.post('/cancion', authenticateToken, (req, res) => {
     const { Titulo, Artista } = req.body;
 
     const query = 'INSERT INTO cancion (Titulo, Artista) VALUES (?, ?)';
-    connection.query(query, [Titulo, Artista, Albumid], (err, results) => {
+    connection.query(query, [Titulo, Artista], (err, results) => {
         if (err) {
             console.error('Error al crear la canción:', err);
             return res.status(500).json({ error: 'Error al crear la canción' });
