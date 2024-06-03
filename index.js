@@ -446,6 +446,21 @@ app.get('/canciones', authenticateToken, (req, res) => {
     });
 });
 
+app.get('/cancion/:id', authenticateToken, (req, res) => {
+
+    const { id } = req.params;
+
+    const query = 'SELECT * FROM cancion WHERE idCancion = ? ';
+    connection.query(query, id, (err, results) => {
+        if (err) {
+            console.error('Error al obtener la cancion por id:', err);
+            return res.status(500).json({ error: 'Error al obtener la cancion por id' });
+        }
+        res.json(results);
+    });
+});
+
+
 /**
  * @swagger
  * /cancion/{id}:
