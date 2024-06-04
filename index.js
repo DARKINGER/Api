@@ -523,7 +523,7 @@ app.put('/cancion/:id', authenticateToken, (req, res) => {
         if (results.affectedRows === 0) {
             return res.status(404).json({ error: 'Canción no encontrada' });
         }
-        res.json({ id, Titulo, Artista, Albumid });
+        res.json({ id, Titulo, Artista });
     });
 });
 
